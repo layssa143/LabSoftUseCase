@@ -37,12 +37,75 @@
                         Detalhe
                     </a>
 
-                    <a href="/Funcionario/Delete/@item.Codigo"
-                       class="btn btn-danger btn-sm text-white">
+                    <button type="button"
+                            class="btn btn-danger btn-sm text-white"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            data-id="@item.Codigo"
+                            data-descricao="@item.Nome">
                         Delete
-                    </a>
+                    </button>
+
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmação de Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Deseja realmente excluir o funcionário:
+                <strong id="funcionarioNome"></strong>?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="modal-btn-cancel btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <!-- Formulário que dispara o POST de Delete para a Controller -->
+                <form id="deleteForm" method="post" action="">
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="btn btn-danger">
+                        Sim, Excluir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+
+            // Código do funcionário
+            var id = button.getAttribute('data-id');
+
+            // Nome do funcionário
+            var nome = button.getAttribute('data-descricao');
+
+            // Exibe o nome no modal
+            var modalNomeSpan = deleteModal.querySelector('#funcionarioNome');
+            modalNomeSpan.textContent = nome;
+
+            // Define a rota para exclusão do funcionário
+            var deleteForm = deleteModal.querySelector('#deleteForm');
+            deleteForm.action = '/Funcionario/Delete/' + id;
+        });
+    </script>
+}
+
