@@ -21,7 +21,11 @@ namespace AppTask.Controllers
         // GET: Funcionario
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Funcionarios.ToListAsync());
+            var funcionarios = await _context.Funcionarios
+                .Include(f => f.Gerente)
+                .ToListAsync();
+
+            return View(funcionarios);
         }
 
         // GET: Funcionario/Details/5
@@ -33,7 +37,9 @@ namespace AppTask.Controllers
             }
 
             var funcionario = await _context.Funcionarios
+                .Include(f => f.Gerente)
                 .FirstOrDefaultAsync(m => m.Codigo == id);
+
             if (funcionario == null)
             {
                 return NotFound();
@@ -45,22 +51,27 @@ namespace AppTask.Controllers
         // GET: Funcionario/Create
         public IActionResult Create()
         {
+            CarregarGerentes();
+
             return View();
         }
 
         // POST: Funcionario/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Nome,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> Create(
+            [Bind("Codigo,Nome,Cargo,CodigoGerente")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(funcionario);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
+
+            CarregarGerentes(funcionario.CodigoGerente);
+
             return View(funcionario);
         }
 
@@ -73,23 +84,37 @@ namespace AppTask.Controllers
             }
 
             var funcionario = await _context.Funcionarios.FindAsync(id);
+
             if (funcionario == null)
             {
                 return NotFound();
             }
+
+            // Não permite que o funcionário seja seu próprio gerente
+            CarregarGerentes(funcionario.CodigoGerente, funcionario.Codigo);
+
             return View(funcionario);
         }
 
         // POST: Funcionario/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Codigo,Nome,Cargo")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("Codigo,Nome,Cargo,CodigoGerente")] Funcionario funcionario)
         {
             if (id != funcionario.Codigo)
             {
                 return NotFound();
+            }
+
+            // Impede que o funcionário seja seu próprio gerente
+            if (funcionario.CodigoGerente == funcionario.Codigo)
+            {
+                ModelState.AddModelError(
+                    "CodigoGerente",
+                    "O funcionário não pode ser seu próprio gerente."
+                );
             }
 
             if (ModelState.IsValid)
@@ -110,8 +135,12 @@ namespace AppTask.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
+            CarregarGerentes(funcionario.CodigoGerente, funcionario.Codigo);
+
             return View(funcionario);
         }
 
@@ -124,7 +153,9 @@ namespace AppTask.Controllers
             }
 
             var funcionario = await _context.Funcionarios
+                .Include(f => f.Gerente)
                 .FirstOrDefaultAsync(m => m.Codigo == id);
+
             if (funcionario == null)
             {
                 return NotFound();
@@ -139,12 +170,14 @@ namespace AppTask.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var funcionario = await _context.Funcionarios.FindAsync(id);
+
             if (funcionario != null)
             {
                 _context.Funcionarios.Remove(funcionario);
             }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -152,5 +185,28 @@ namespace AppTask.Controllers
         {
             return _context.Funcionarios.Any(e => e.Codigo == id);
         }
+
+        // Carrega a lista de funcionários que podem ser gerentes
+        private void CarregarGerentes(int? gerenteSelecionado = null, int? funcionarioAtual = null)
+        {
+            var funcionarios = _context.Funcionarios
+                .AsNoTracking()
+                .Where(f => funcionarioAtual == null || f.Codigo != funcionarioAtual)
+                .OrderBy(f => f.Nome)
+                .ToList();
+
+            ViewBag.ListaGerente = new SelectList(
+                funcionarios,
+                "Codigo",
+                "Nome",
+                gerenteSelecionado
+            );
+        }
     }
 }
+
+
+
+
+
+

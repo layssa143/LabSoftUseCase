@@ -32,7 +32,7 @@ public partial class DbTasksContext : DbContext
     {
         modelBuilder.Entity<CentralCusto>(entity =>
         {
-            entity.HasKey(e => e.Codigo).HasName("PK__CentralC__06370DADD3A6DFB3");
+            entity.HasKey(e => e.Codigo).HasName("PK__CentralC__06370DADBE704429");
 
             entity.ToTable("CentralCusto");
 
@@ -44,12 +44,12 @@ public partial class DbTasksContext : DbContext
 
         modelBuilder.Entity<Departamento>(entity =>
         {
-            entity.HasKey(e => e.Codigo).HasName("PK__Departam__06370DADB6B3B7D7");
+            entity.HasKey(e => e.Codigo).HasName("PK__Departam__06370DAD0C2F4C60");
 
             entity.ToTable("Departamento");
 
             entity.Property(e => e.Ativo)
-                .HasMaxLength(250)
+                .HasMaxLength(3)
                 .IsUnicode(false);
             entity.Property(e => e.DescricaoDepartamento)
                 .HasMaxLength(250)
@@ -58,21 +58,28 @@ public partial class DbTasksContext : DbContext
 
         modelBuilder.Entity<Funcionario>(entity =>
         {
-            entity.HasKey(e => e.Codigo).HasName("PK__Funciona__06370DADA2DB18E8");
+            entity.HasKey(e => e.Codigo).HasName("PK__Funciona__06370DAD5A521526");
 
             entity.ToTable("Funcionario");
 
             entity.Property(e => e.Cargo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
             entity.Property(e => e.Nome)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.Gerente)
+                .WithMany(p => p.FuncionariosGerenciados)
+                .HasForeignKey(d => d.CodigoGerente)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_Funcionario_Gerente");
         });
 
         modelBuilder.Entity<Incidente>(entity =>
         {
-            entity.HasKey(e => e.Codigo).HasName("PK__Incident__06370DAD640575ED");
+            entity.HasKey(e => e.Codigo).HasName("PK__Incident__06370DAD0CA89A19");
 
             entity.ToTable("Incidente");
 
@@ -90,7 +97,7 @@ public partial class DbTasksContext : DbContext
 
         modelBuilder.Entity<Tarefa>(entity =>
         {
-            entity.HasKey(e => e.Codigo).HasName("PK__Tarefa__06370DAD03D27351");
+            entity.HasKey(e => e.Codigo).HasName("PK__Tarefa__06370DAD7BDB81E1");
 
             entity.ToTable("Tarefa");
 
