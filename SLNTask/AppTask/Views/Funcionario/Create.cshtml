@@ -4,42 +4,150 @@
     ViewData["Title"] = "Novo Funcionário";
 }
 
-<h1 class="mb-4">Cadastrar Novo Funcionário</h1>
+<div class="form-page">
 
-<div class="row">
-    <div class="col-md-6">
-        <form action="/Funcionario/Create" method="post">
+    <div class="page-header">
+
+        <div>
+            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
+
+            <h1>Novo Funcionário</h1>
+
+            <p>
+                Cadastre um novo funcionário no sistema.
+            </p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            ← Voltar
+        </a>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon funcionario-form-icon">
+                👤
+            </div>
+
+            <div>
+                <h2>Informações do funcionário</h2>
+
+                <p>
+                    Preencha os dados abaixo para realizar o cadastro.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div asp-validation-summary="All" class="validation-message"></div>
+
+
+        <form asp-action="Create" method="post">
+
             @Html.AntiForgeryToken()
 
-            <div class="mb-3">
-                <label for="Nome" class="form-label">Nome</label>
+
+            <!-- NOME -->
+
+            <div class="input-group">
+
+                <label for="Nome">
+                    Nome
+                </label>
+
                 <input type="text"
                        id="Nome"
                        name="Nome"
                        class="form-control"
                        placeholder="Digite o nome do funcionário"
                        required />
+
             </div>
 
-            <div class="mb-3">
-                <label for="Cargo" class="form-label">Cargo</label>
+
+            <!-- CARGO -->
+
+            <div class="input-group">
+
+                <label for="Cargo">
+                    Cargo
+                </label>
+
                 <input type="text"
                        id="Cargo"
                        name="Cargo"
                        class="form-control"
                        placeholder="Digite o cargo do funcionário"
                        required />
+
             </div>
 
-            <div class="mb-3 d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    Salvar Funcionário
+
+            <!-- GERENTE -->
+
+            <div class="input-group">
+
+                <label for="CodigoGerente">
+                    Gerente
+                </label>
+
+                <select asp-for="CodigoGerente"
+                        class="form-control"
+                        asp-items="ViewBag.ListaGerente">
+
+                    <option value="">
+                        -- Selecione um Gerente --
+                    </option>
+
+                </select>
+
+                <small class="field-help">
+                    Selecione um funcionário já cadastrado para ser o gerente.
+                </small>
+
+                <span asp-validation-for="CodigoGerente"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- BOTÕES -->
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    Cancelar
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+                    ✓ Salvar Funcionário
                 </button>
 
-                <a href="/Funcionario/Index" class="btn btn-secondary">
-                    Voltar para a Lista
-                </a>
             </div>
+
         </form>
+
     </div>
+
 </div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+
+
+
+
