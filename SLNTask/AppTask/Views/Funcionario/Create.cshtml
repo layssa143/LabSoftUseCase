@@ -1,153 +1,59 @@
 ﻿@model AppTask.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Novo Funcionário";
+    ViewData["Title"] = "Novo funcionário";
 }
 
-<div class="form-page">
+<h1>Cadastrar Novo Funcionário</h1>
 
-    <div class="page-header">
+<form asp-action="Create" method="post">
 
-        <div>
-            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
+    @Html.AntiForgeryToken()
 
-            <h1>Novo Funcionário</h1>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <p>
-                Cadastre um novo funcionário no sistema.
-            </p>
-        </div>
-
-        <a asp-action="Index" class="back-button">
-            ← Voltar
-        </a>
-
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label">NOME COMPLETO</label>
+        <input asp-for="Nome"
+               class="form-control"
+               placeholder="Digite o nome do funcionário"
+               autocomplete="off" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
-
-    <div class="form-card">
-
-        <div class="form-card-header">
-
-            <div class="form-icon funcionario-form-icon">
-                👤
-            </div>
-
-            <div>
-                <h2>Informações do funcionário</h2>
-
-                <p>
-                    Preencha os dados abaixo para realizar o cadastro.
-                </p>
-            </div>
-
-        </div>
-
-
-        <div asp-validation-summary="All" class="validation-message"></div>
-
-
-        <form asp-action="Create" method="post">
-
-            @Html.AntiForgeryToken()
-
-
-            <!-- NOME -->
-
-            <div class="input-group">
-
-                <label for="Nome">
-                    Nome
-                </label>
-
-                <input type="text"
-                       id="Nome"
-                       name="Nome"
-                       class="form-control"
-                       placeholder="Digite o nome do funcionário"
-                       required />
-
-            </div>
-
-
-            <!-- CARGO -->
-
-            <div class="input-group">
-
-                <label for="Cargo">
-                    Cargo
-                </label>
-
-                <input type="text"
-                       id="Cargo"
-                       name="Cargo"
-                       class="form-control"
-                       placeholder="Digite o cargo do funcionário"
-                       required />
-
-            </div>
-
-
-            <!-- GERENTE -->
-
-            <div class="input-group">
-
-                <label for="CodigoGerente">
-                    Gerente
-                </label>
-
-                <select asp-for="CodigoGerente"
-                        class="form-control"
-                        asp-items="ViewBag.ListaGerente">
-
-                    <option value="">
-                        -- Selecione um Gerente --
-                    </option>
-
-                </select>
-
-                <small class="field-help">
-                    Selecione um funcionário já cadastrado para ser o gerente.
-                </small>
-
-                <span asp-validation-for="CodigoGerente"
-                      class="text-danger">
-                </span>
-
-            </div>
-
-
-            <!-- BOTÕES -->
-
-            <div class="form-actions">
-
-                <a asp-action="Index"
-                   class="cancel-button">
-                    Cancelar
-                </a>
-
-                <button type="submit"
-                        class="save-button">
-                    ✓ Salvar Funcionário
-                </button>
-
-            </div>
-
-        </form>
-
+    <div class="mb-3">
+        <label asp-for="Cargo" class="form-label">CARGO</label>
+        <input asp-for="Cargo"
+               class="form-control"
+               placeholder="Digite o cargo do funcionário"
+               autocomplete="off" />
+        <span asp-validation-for="Cargo" class="text-danger"></span>
     </div>
 
-</div>
+    <div class="mb-3">
+        <label asp-for="CodigoGerente" class="form-label">GERENTE</label>
 
+        <select asp-for="CodigoGerente"
+                class="form-select"
+                asp-items="ViewBag.ListaGerentes">
+            <option value="">-- Selecione --</option>
+        </select>
+
+        <span asp-validation-for="CodigoGerente" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        SALVAR FUNCIONÁRIO
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        VOLTAR PARA A LISTA
+    </a>
+
+</form>
 
 @section Scripts {
-
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
 }
-
-
-
-

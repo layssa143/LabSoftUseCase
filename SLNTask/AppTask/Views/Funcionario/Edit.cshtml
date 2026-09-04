@@ -1,153 +1,59 @@
 ﻿@model AppTask.Models.Funcionario
 
 @{
-    ViewData["Title"] = "Editar Funcionário";
+    ViewData["Title"] = "Editar funcionário";
 }
 
-<div class="form-page">
+<h1>Editar Funcionário</h1>
 
-    <div class="page-header">
+<form asp-action="Edit" method="post">
 
-        <div>
-            <span class="page-subtitle">GERENCIAMENTO DE FUNCIONÁRIOS</span>
+    @Html.AntiForgeryToken()
 
-            <h1>Editar Funcionário</h1>
+    <input type="hidden" asp-for="Codigo" />
 
-            <p>
-                Atualize as informações do funcionário.
-            </p>
-        </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <a asp-action="Index" class="back-button">
-            ← Voltar
-        </a>
-
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label">NOME COMPLETO</label>
+        <input asp-for="Nome"
+               class="form-control"
+               autocomplete="off" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
 
-
-    <div class="form-card">
-
-        <div class="form-card-header">
-
-            <div class="form-icon funcionario-form-icon">
-                👤
-            </div>
-
-            <div>
-                <h2>Informações do funcionário</h2>
-
-                <p>
-                    Altere os dados abaixo e salve as modificações.
-                </p>
-            </div>
-
-        </div>
-
-
-        <div asp-validation-summary="ModelOnly"
-             class="validation-message">
-        </div>
-
-
-        <form asp-action="Edit" method="post">
-
-            <input type="hidden" asp-for="Codigo" />
-
-
-            <!-- NOME -->
-
-            <div class="input-group">
-
-                <label asp-for="Nome">
-                    Nome
-                </label>
-
-                <input asp-for="Nome"
-                       class="form-control"
-                       placeholder="Digite o nome do funcionário" />
-
-                <span asp-validation-for="Nome"
-                      class="text-danger">
-                </span>
-
-            </div>
-
-
-            <!-- CARGO -->
-
-            <div class="input-group">
-
-                <label asp-for="Cargo">
-                    Cargo
-                </label>
-
-                <input asp-for="Cargo"
-                       class="form-control"
-                       placeholder="Digite o cargo do funcionário" />
-
-                <span asp-validation-for="Cargo"
-                      class="text-danger">
-                </span>
-
-            </div>
-
-
-            <!-- GERENTE -->
-
-            <div class="input-group">
-
-                <label asp-for="CodigoGerente">
-                    Gerente
-                </label>
-
-                <select asp-for="CodigoGerente"
-                        class="form-control"
-                        asp-items="ViewBag.ListaGerente">
-
-                    <option value="">
-                        -- Selecione um Gerente --
-                    </option>
-
-                </select>
-
-                <small class="field-help">
-                    Selecione um funcionário já cadastrado para ser o gerente.
-                </small>
-
-                <span asp-validation-for="CodigoGerente"
-                      class="text-danger">
-                </span>
-
-            </div>
-
-
-            <!-- BOTÕES -->
-
-            <div class="form-actions">
-
-                <a asp-action="Index"
-                   class="cancel-button">
-                    Cancelar
-                </a>
-
-                <button type="submit"
-                        class="save-button">
-                    ✓ Salvar Alterações
-                </button>
-
-            </div>
-
-        </form>
-
+    <div class="mb-3">
+        <label asp-for="Cargo" class="form-label">CARGO</label>
+        <input asp-for="Cargo"
+               class="form-control"
+               autocomplete="off" />
+        <span asp-validation-for="Cargo" class="text-danger"></span>
     </div>
 
-</div>
+    <div class="mb-3">
+        <label asp-for="CodigoGerente" class="form-label">GERENTE</label>
 
+        <select asp-for="CodigoGerente"
+                class="form-select"
+                asp-items="ViewBag.ListaGerentes">
+            <option value="">-- Selecione --</option>
+        </select>
+
+        <span asp-validation-for="CodigoGerente" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        SALVAR ALTERAÇÕES
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        VOLTAR PARA A LISTA
+    </a>
+
+</form>
 
 @section Scripts {
-
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
 }

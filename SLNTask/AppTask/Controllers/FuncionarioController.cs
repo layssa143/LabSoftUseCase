@@ -186,21 +186,19 @@ namespace AppTask.Controllers
             return _context.Funcionarios.Any(e => e.Codigo == id);
         }
 
-        // Carrega a lista de funcionários que podem ser gerentes
-        private void CarregarGerentes(int? gerenteSelecionado = null, int? funcionarioAtual = null)
+        private void CarregarGerentes(int? selecionado = null, int? ignorar = null)
         {
-            var funcionarios = _context.Funcionarios
+            var gerentes = _context.Funcionarios
                 .AsNoTracking()
-                .Where(f => funcionarioAtual == null || f.Codigo != funcionarioAtual)
+                .Where(f => !ignorar.HasValue || f.Codigo != ignorar.Value)
                 .OrderBy(f => f.Nome)
                 .ToList();
 
-            ViewBag.ListaGerente = new SelectList(
-                funcionarios,
+            ViewBag.ListaGerentes = new SelectList(
+                gerentes,
                 "Codigo",
                 "Nome",
-                gerenteSelecionado
-            );
+                selecionado);
         }
     }
 }
