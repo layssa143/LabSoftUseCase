@@ -1515,3 +1515,289 @@ textarea.form-control {
         margin-right: 0;
     }
 }
+
+/* =========================================================
+   FUNCIONÁRIOS — LISTA
+   Mantém o padrão Editorial / Minimal / Warm
+========================================================= */
+
+.list-page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 42px;
+}
+
+    .list-page-header .eyebrow {
+        margin-bottom: 10px;
+        color: var(--accent);
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .14em;
+    }
+
+    .list-page-header h1 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 48px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: -.045em;
+    }
+
+    .list-page-header p {
+        margin: 14px 0 0;
+        color: var(--ink-soft);
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+    .primary-btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+    }
+
+    .primary-btn .plus {
+        margin-right: 6px;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+
+/* =========================================================
+   CARD DA LISTA
+========================================================= */
+
+.list-card {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--line);
+}
+
+.list-card-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 25px 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+    .list-card-top h2 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 29px;
+        font-weight: 400;
+        letter-spacing: -.035em;
+    }
+
+.record-count {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+
+/* =========================================================
+   TABELA DE FUNCIONÁRIOS
+========================================================= */
+
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    color: var(--ink);
+}
+
+    .data-table thead th {
+        padding: 14px 16px;
+        background: var(--dark);
+        color: #f3eee4;
+        border: 0;
+        font-size: 9px;
+        font-weight: 800;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .data-table tbody td {
+        padding: 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--white);
+        color: var(--ink);
+        font-size: 13px;
+        line-height: 1.5;
+        vertical-align: middle;
+    }
+
+    .data-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .data-table tbody tr:hover td {
+        background: #f8f4ec;
+    }
+
+.strong-cell {
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.action-cell {
+    white-space: nowrap;
+}
+
+.table-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    margin-right: 5px;
+    padding: 0 12px;
+    border: 1px solid var(--line-dark);
+    background: transparent;
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 800;
+    text-decoration: none;
+    letter-spacing: .03em;
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+    .table-action:hover {
+        text-decoration: none;
+    }
+
+    .table-action.edit {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+        .table-action.edit:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+    .table-action.view {
+        border-color: var(--line-dark);
+        color: var(--ink-soft);
+    }
+
+        .table-action.view:hover {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+    .table-action.delete {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+        .table-action.delete:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+
+/* =========================================================
+   ESTADO VAZIO
+========================================================= */
+
+.empty-state {
+    padding: 45px 20px !important;
+    color: var(--muted) !important;
+    text-align: center;
+    font-size: 12px !important;
+}
+
+
+/* =========================================================
+   MODAL DE FUNCIONÁRIOS
+========================================================= */
+
+#deleteModal .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+    #deleteModal .modal-footer form {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        max-width: none;
+    }
+
+        #deleteModal .modal-footer form button {
+            margin: 0;
+        }
+
+
+/* =========================================================
+   RESPONSIVO — FUNCIONÁRIOS
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .list-page-header {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+        .list-page-header .primary-btn {
+            margin-top: 20px;
+        }
+
+        .list-page-header h1 {
+            font-size: 40px;
+        }
+
+    .list-card-top {
+        display: block;
+    }
+
+    .record-count {
+        display: block;
+        margin-top: 10px;
+    }
+}
+
