@@ -23,6 +23,25 @@
                 <input asp-for="Cargo" class="form-control" />
                 <span asp-validation-for="Cargo" class="text-danger"></span>
             </div>
+            <div class="form-field">
+                <label asp-for="CodigoGerente">
+                    Gerente <small>(opcional)</small>
+                </label>
+
+                <select asp-for="CodigoGerente"
+                        class="form-select"
+                        asp-items="ViewBag.ListaGerentes">
+
+                    <option value="">
+                        Sem gerente
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="CodigoGerente"
+                      class="field-error">
+                </span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
