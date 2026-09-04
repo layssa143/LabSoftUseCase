@@ -905,7 +905,6 @@ td .btn {
 }
 /* =========================================================
    BOTÃO EXCLUIR — MODAL
-  
 ========================================================= */
 
 #deleteModal .modal-footer form {
@@ -1289,3 +1288,230 @@ textarea.form-control {
             background: var(--accent) !important;
             color: white !important;
         }
+/* =========================================================
+   PADRÃO DAS PÁGINAS DE DETALHES
+========================================================= */
+
+
+/* CONTAINER PRINCIPAL DOS DETALHES */
+
+.page-content > h1 {
+    margin-bottom: 12px;
+    color: #252522;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+}
+
+
+/* TÍTULO DA ENTIDADE
+   Ex: Funcionário, Tarefa, Incidente */
+
+.page-content > h4 {
+    margin-top: 38px;
+    margin-bottom: 18px;
+    color: #252522;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+/* LINHA ABAIXO DO TÍTULO */
+
+.page-content > hr {
+    margin-top: 0;
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid #d5cec2;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   ÁREA DE INFORMAÇÕES
+========================================================= */
+
+.page-content dl.row {
+    max-width: 900px;
+    margin: 0;
+    padding: 8px 0;
+    background: #faf7f0;
+    border: 1px solid #d8d1c5;
+    border-top: 0;
+}
+
+
+    /* CADA LINHA */
+
+    .page-content dl.row dt,
+    .page-content dl.row dd {
+        margin: 0;
+        padding: 18px 22px;
+        border-bottom: 1px solid #e2dbd0;
+    }
+
+
+    /* LABEL */
+
+    .page-content dl.row dt {
+        color: #858078;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+
+    /* VALOR */
+
+    .page-content dl.row dd {
+        color: #292824;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+
+        /* Remove a linha do último campo */
+
+        .page-content dl.row dt:nth-last-of-type(1),
+        .page-content dl.row dd:nth-last-of-type(1) {
+            border-bottom: 0;
+        }
+
+
+/* =========================================================
+   LINKS DE AÇÃO
+========================================================= */
+
+.page-content > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 28px;
+    margin-right: 8px;
+    padding: 0 22px;
+    border: 1px solid #c65d3c;
+    background: transparent;
+    color: #c65d3c;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+
+    .page-content > a:hover {
+        background: #c65d3c;
+        border-color: #c65d3c;
+        color: #fff;
+    }
+
+
+/* =========================================================
+   LINKS DENTRO DA ÁREA DE DETALHES
+   Mantém os nomes originais:
+   Edit | Back to List
+========================================================= */
+
+.page-content dl + a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 28px;
+    margin-right: 8px;
+    padding: 0 22px;
+    border: 1px solid #c65d3c;
+    background: transparent;
+    color: #c65d3c;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+
+    .page-content dl + a:hover {
+        background: #c65d3c;
+        border-color: #c65d3c;
+        color: #fff;
+    }
+
+
+    /* =========================================================
+   SEGUNDO BOTÃO
+   Ex: Back to List
+========================================================= */
+
+    .page-content dl + a + a {
+        border-color: #cfc6b9;
+        color: #4d4a45;
+    }
+
+
+        .page-content dl + a + a:hover {
+            background: transparent;
+            border-color: #c65d3c;
+            color: #c65d3c;
+        }
+
+
+/* =========================================================
+   DETALHES COM CAMPOS VAZIOS
+========================================================= */
+
+.page-content dl.row dd:empty::after {
+    content: "—";
+    color: #aaa49b;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .page-content > h1 {
+        font-size: 40px;
+    }
+
+
+    .page-content > h4 {
+        font-size: 20px;
+    }
+
+
+    .page-content dl.row {
+        width: 100%;
+    }
+
+
+        .page-content dl.row dt,
+        .page-content dl.row dd {
+            padding: 14px 16px;
+        }
+
+
+        .page-content dl.row dt {
+            border-bottom: 0;
+            padding-bottom: 5px;
+        }
+
+
+        .page-content dl.row dd {
+            padding-top: 5px;
+        }
+
+
+    .page-content dl + a,
+    .page-content dl + a + a {
+        width: 100%;
+        margin-right: 0;
+    }
+}
